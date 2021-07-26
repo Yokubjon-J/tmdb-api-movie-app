@@ -110,9 +110,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MultilineTextFields({region, language, monetizationType, page, setRegion, setLanguage, setMonetizationType, setPage}) {
+export default function MultilineTextFields({region, language, monetizationType, page, setRegion, setLanguage, setMonetizationType, 
+  setPage, personInput, setPersonInput, byPerson, setByPerson}) {
   const classes = useStyles();
-    
+  const changeSearch = () => {byPerson===false ? console.log('set to false') : setByPerson(false)}
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
@@ -121,7 +122,7 @@ export default function MultilineTextFields({region, language, monetizationType,
           select
           label="Country"
           value={region}
-          onChange={(e) => {setRegion(e.target.value);} }
+          onChange={(e) => {setRegion(e.target.value); changeSearch();} }
           // onChange={(e) => {region = e.target.value; changeSearch();} }
           SelectProps={{
             native: true,
@@ -143,7 +144,7 @@ export default function MultilineTextFields({region, language, monetizationType,
           select
           label="Language"
           value={language}
-          onChange={(e) => {setLanguage(e.target.value);}}
+          onChange={(e) => {setLanguage(e.target.value); changeSearch();}}
           // onChange={(e) => {language=e.target.value; changeSearch();}}
           SelectProps={{
             native: true,
@@ -162,7 +163,7 @@ export default function MultilineTextFields({region, language, monetizationType,
           select
           label="Monetization types"
           value={monetizationType}
-          onChange={(e) => {setMonetizationType(e.target.value);}}
+          onChange={(e) => {setMonetizationType(e.target.value); changeSearch();}}
           // onChange={(e) => {monetizationType=e.target.value; changeSearch();}}
           SelectProps={{
             native: true,
@@ -183,7 +184,7 @@ export default function MultilineTextFields({region, language, monetizationType,
           select={false}
           label="Rating"
           value={page}
-          onChange={(e) => {setPage(e.target.value);}}
+          onChange={(e) => {setPage(e.target.value); changeSearch();}}
           // onChange={(e) => {page=e.target.value;}}
           SelectProps={{
             native: true,

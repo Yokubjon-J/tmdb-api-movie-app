@@ -12,41 +12,67 @@ function App() {
   //   page, setPage} = useContext(MovieQueriesContext);
   // let {search, filters} = useContext(MovieQueriesContext);
   let [content, setContent] = useState([]);
+  let [byPerson, setByPerson] = useState(false);
+  let [personInput, setPersonInput] = useState('Benedict');
+  let [personResults, setPersonResults] = useState([]);
   const [region, setRegion] = useState('LU');
   const [language, setLanguage] = useState('en');
   const [monetizationType, setMonetizationType] = useState('flatrate');
   const [page, setPage] = useState(1);
-  // let region = "LU", language = 'en', monetizationType = 'flatrate', page = 1;
-  let search = false; let filters = true;
-
+  
   const fetchMovies = async () => {
     let data = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=${language}&region=${region}&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=${monetizationType}`);
     console.log(data); //just to inspect the url
-    // return data;
     setContent(data.data.results) //contains only 20 movies
   }
 
-  useEffect(() => {
-    fetchMovies()
-    console.log('initial content: ', content);
-  }, []);
+  const fetchByPerson = async () => {
+    let dataa = await axios.get(`https://api.themoviedb.org/3/search/person?api_key=${process.env.REACT_APP_TMDB_API_KEY}&query=${personInput}&language=en-US&page=1&include_adult=false`);
+    console.log(dataa); //just to inspect the url
+    setPersonResults(dataa.data.results);
+    console.log(personResults);
+  }
+
+  // useEffect(() => {
+  //   fetchMovies()
+  //   console.log('initial content: ', content);
+  // }, []);
+
+  // useEffect(() => {
+  //     fetchByPerson();
+  //     fetchMovies();
+  //     console.log('initial content: ', content);
+  // }, []);
  
+  // useEffect(() => {
+  //   fetchMovies();
+  //   console.log('later content: ', content);
+  // }, [region, language, monetizationType, page, byPerson]);
+
   useEffect(() => {
-    fetchMovies();
+    fetchByPerson(); fetchMovies();
     console.log('later content: ', content);
-  }, [region, language, monetizationType, page]);
+  }, [region, language, monetizationType, page, byPerson, personInput]);
   
-  return (
-    // <p>bbbbb. {content && content[0].title}</p> 
-    <MovieQueriesContextProvider>
+  if (byPerson===false) {return (
+    // <MovieQueriesContextProvider>
       <div className="App">
         <ComplexAppBar region={region} language={language} monetizationType={monetizationType} page={page}
-          setRegion={setRegion} setLanguage={setLanguage} setMonetizationType={setMonetizationType} setPage={setPage} />
-        <List content={content} />
-        {/* <List content={content }/> */}
+          setRegion={setRegion} setLanguage={setLanguage} setMonetizationType={setMonetizationType} setPage={setPage} 
+          personInput={personInput} setPersonInput={setPersonInput} byPerson={byPerson} setByPerson={setByPerson}/>
+        <List content={content} personInput={personInput} byPerson={byPerson} personResults={personResults}/>
       </div>
-    </MovieQueriesContextProvider>
-  );
+    // </MovieQueriesContextProvider>
+  )} else {
+    return (
+      <div>
+        <ComplexAppBar region={region} language={language} monetizationType={monetizationType} page={page}
+          setRegion={setRegion} setLanguage={setLanguage} setMonetizationType={setMonetizationType} setPage={setPage} 
+          personInput={personInput} setPersonInput={setPersonInput} byPerson={byPerson} setByPerson={setByPerson}/>
+        <List content={content} personInput={personInput} byPerson={byPerson} personResults={personResults} />
+      </div>
+    )
+  }
 }
 
 export default App;

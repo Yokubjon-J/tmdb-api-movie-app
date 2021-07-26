@@ -80,7 +80,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({region, language, monetizationType, page, setRegion, setLanguage, setMonetizationType, setPage}) {
+export default function PrimarySearchAppBar({region, language, monetizationType, page, setRegion, setLanguage,
+  setMonetizationType, setPage, personInput, setPersonInput, byPerson, setByPerson}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -104,8 +105,12 @@ export default function PrimarySearchAppBar({region, language, monetizationType,
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const changeSearchValue = () => {byPerson===true ? console.log('set to true') : setByPerson(true)}
 
-  const handleChange = () => {};
+  const handleChange = (e) => {
+    changeSearchValue();
+    setPersonInput(e.target.value);
+  };
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -234,7 +239,8 @@ export default function PrimarySearchAppBar({region, language, monetizationType,
           </div>
         </Toolbar>
         <WrappedSelectForm region={region} language={language} monetizationType={monetizationType} page={page}
-          setRegion={setRegion} setLanguage={setLanguage} setMonetizationType={setMonetizationType} setPage={setPage} />
+          setRegion={setRegion} setLanguage={setLanguage} setMonetizationType={setMonetizationType} setPage={setPage}
+          byPerson={byPerson} setByPerson={setByPerson} />
       </AppBar>
       
       {renderMobileMenu}

@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ClickAway({region, language, monetizationType, page, setRegion, setLanguage, setMonetizationType, setPage}) {
+export default function ClickAway({region, language, monetizationType, page, setRegion, setLanguage, setMonetizationType, 
+  setPage, personInput, setPersonInput, byPerson, setByPerson}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -53,7 +54,8 @@ export default function ClickAway({region, language, monetizationType, page, set
         </ColorButton>
         {open ? (
           <SelectForm region={region} language={language} monetizationType={monetizationType} page={page}
-          setRegion={setRegion} setLanguage={setLanguage} setMonetizationType={setMonetizationType} setPage={setPage}/>
+          setRegion={setRegion} setLanguage={setLanguage} setMonetizationType={setMonetizationType} setPage={setPage}
+          personInput={personInput} setPersonInput={setPersonInput} byPerson={byPerson} setByPerson={setByPerson}/>
         ) : null}
       </div>
     </ClickAwayListener>
