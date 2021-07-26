@@ -190,7 +190,7 @@ export default function PrimarySearchAppBar({region, language, monetizationType,
             </div>
             <InputBase
               fullWidth={true}
-              placeholder="Search…"
+              placeholder="Search by Person Name..."
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
