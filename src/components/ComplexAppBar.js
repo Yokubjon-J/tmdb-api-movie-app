@@ -15,6 +15,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import WrappedSelectForm from './WrappedSelectForm'; //la
+import AuthNav from "./auth-in-nav";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -123,8 +124,8 @@ export default function PrimarySearchAppBar({region, language, monetizationType,
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Profile <AuthNav/></MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account <AuthNav/></MenuItem>
     </Menu>
   );
 
@@ -223,7 +224,7 @@ export default function PrimarySearchAppBar({region, language, monetizationType,
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle/>
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>

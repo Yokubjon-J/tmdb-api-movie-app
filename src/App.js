@@ -1,11 +1,11 @@
 import './App.css';
 import List from "./components/List";
-import {useState, useEffect, useContext} from 'react';
+import {useState, useEffect} from 'react';
 import ComplexAppBar from "./components/ComplexAppBar";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import axios from 'axios';
-import {MovieQueriesContext} from './MovieQueriesContext';
-import MovieQueriesContextProvider from './MovieQueriesContext';
+// import {MovieQueriesContext} from './MovieQueriesContext';
+// import MovieQueriesContextProvider from './MovieQueriesContext';
 function App() {
 
   // let { region, setRegion, language, setLanguage, monetizationType, setMonetizationType,
