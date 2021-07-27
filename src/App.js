@@ -2,7 +2,6 @@ import './App.css';
 import List from "./components/List";
 import {useState, useEffect} from 'react';
 import ComplexAppBar from "./components/ComplexAppBar";
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import axios from 'axios';
 // import {MovieQueriesContext} from './MovieQueriesContext';
 // import MovieQueriesContextProvider from './MovieQueriesContext';
@@ -53,26 +52,34 @@ function App() {
     fetchByPerson(); fetchMovies();
     console.log('later content: ', content);
   }, [region, language, monetizationType, page, byPerson, personInput]);
-  
-  if (byPerson===false) {return (
-    // <MovieQueriesContextProvider>
-      <div className="App">
-        <ComplexAppBar region={region} language={language} monetizationType={monetizationType} page={page}
-          setRegion={setRegion} setLanguage={setLanguage} setMonetizationType={setMonetizationType} setPage={setPage} 
-          personInput={personInput} setPersonInput={setPersonInput} byPerson={byPerson} setByPerson={setByPerson}/>
-        <List content={content} personInput={personInput} byPerson={byPerson} personResults={personResults}/>
-      </div>
-    // </MovieQueriesContextProvider>
-  )} else {
-    return (
-      <div>
-        <ComplexAppBar region={region} language={language} monetizationType={monetizationType} page={page}
-          setRegion={setRegion} setLanguage={setLanguage} setMonetizationType={setMonetizationType} setPage={setPage} 
-          personInput={personInput} setPersonInput={setPersonInput} byPerson={byPerson} setByPerson={setByPerson}/>
-        <List content={content} personInput={personInput} byPerson={byPerson} personResults={personResults} />
-      </div>
-    )
+
+  const renderComponents = () => {
+    if (byPerson===false) {return (
+      // <MovieQueriesContextProvider>
+        <div className="App">
+          <ComplexAppBar region={region} language={language} monetizationType={monetizationType} page={page}
+            setRegion={setRegion} setLanguage={setLanguage} setMonetizationType={setMonetizationType} setPage={setPage} 
+            personInput={personInput} setPersonInput={setPersonInput} byPerson={byPerson} setByPerson={setByPerson}/>
+          <List content={content} personInput={personInput} byPerson={byPerson} personResults={personResults}/>
+        </div>
+      // </MovieQueriesContextProvider>
+    )} else {
+      return (
+        <div>
+          <ComplexAppBar region={region} language={language} monetizationType={monetizationType} page={page}
+            setRegion={setRegion} setLanguage={setLanguage} setMonetizationType={setMonetizationType} setPage={setPage} 
+            personInput={personInput} setPersonInput={setPersonInput} byPerson={byPerson} setByPerson={setByPerson}/>
+          <List content={content} personInput={personInput} byPerson={byPerson} personResults={personResults} />
+        </div>
+      )
+    }
   }
+  
+  return (
+    <div>
+      {renderComponents()}
+    </div>
+  )
 }
 
 export default App;
